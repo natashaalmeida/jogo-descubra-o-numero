@@ -6,11 +6,10 @@ var tentativas = 1;
 function exibirNaTela(tag, texto) {
     var campo = document.querySelector(tag);
     campo.innerHTML = texto;
-    responsiveVoice.speak(texto,'Brazilian Portuguese Female',{rate:1.2} )
+    responsiveVoice.speak(texto,'Brazilian Portuguese Female',{rate:1.2});
 }
 
 function mensagemInicial(){
-
     exibirNaTela('h1' , 'Desafio do número secreto');
     exibirNaTela('p', 'Escolha um número de 1 à 10');
 }
@@ -22,8 +21,7 @@ function verificarChute(){
 
     if(chute == numeroSecreto) {
         exibirNaTela('h1' , 'Acertou!');
-        
-        var palavraTentativas = tentativas > 1? 'Tentativas' : 'Tentativa';
+        var palavraTentativas = tentativas > 1? 'tentativas' : 'tentativa';
         var mensagemTentativa = `Você descobriu o número secreto com ${tentativas} ${palavraTentativas}!`
         exibirNaTela('p', mensagemTentativa);
         document.getElementById('reiniciar').removeAttribute('disabled')
@@ -37,12 +35,6 @@ function verificarChute(){
         tentativas++;
         limparNome()
     }
-
-}
-
-function limparNome (){
-    chute = document.querySelector('input')
-    chute.value = '';
 }
 
 function gerarNumeroAleatorio() {
@@ -52,25 +44,30 @@ function gerarNumeroAleatorio() {
     if(quantidadeDeElementosNaLista == numeroLimite){
         numeroSorteado = [];
     }
-
-
     if(numeroSorteado.includes(numeroEscolhido)){
     return gerarNumeroAleatorio();
-} else {
-    numeroSorteado.push(numeroEscolhido)
-    return numeroEscolhido;
+    } else {
+        numeroSorteado.push(numeroEscolhido);
+        console.log(numeroSorteado)
+        return numeroEscolhido;
+    }
+
 }
 
-    
+function limparNome (){
+    chute = document.querySelector('input')
+    chute.value = '';
 }
+
+
 
 function reiniciarJogo(){
 
-    numeroSecreto=gerarNumeroAleatorio;
+    numeroSecreto=gerarNumeroAleatorio();
     limparNome();
-    tentativas++
-    mensagemInicial()
-    document.getElementById('reiniciar').setAttribute('disabled' ,true)
+    tentativas = 1;
+    mensagemInicial();
+    document.getElementById('reiniciar').setAttribute('disabled' ,true);
 }
 
 
